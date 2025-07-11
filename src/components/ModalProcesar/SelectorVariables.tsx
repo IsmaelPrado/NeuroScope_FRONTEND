@@ -1,44 +1,43 @@
 // src/components/ModalProcesar/SelectorVariables.tsx
-import React, { useState } from 'react';
+import React from 'react';
+
+interface Props {
+  selected: string[];
+  onChange: (values: string[]) => void;
+}
 
 const todasVariables = [
-  { label: 'Apertura', value: 'apertura' },
-  { label: 'Responsabilidad', value: 'responsabilidad' },
-  { label: 'Extraversion', value: 'extraversion' },
-  { label: 'Amabilidad', value: 'amabilidad' },
-  { label: 'Neuroticismo', value: 'neuroticismo' },
+  { label: 'Apertura (O)', value: 'O' },
+  { label: 'Responsabilidad (C)', value: 'C' },
+  { label: 'Extraversión (E)', value: 'E' },
+  { label: 'Amabilidad (A)', value: 'A' },
+  { label: 'Neuroticismo (N)', value: 'N' },
 ];
 
-const SelectorVariables: React.FC = () => {
-  const [seleccionadas, setSeleccionadas] = useState<string[]>([]);
-
+const SelectorVariables: React.FC<Props> = ({ selected, onChange }) => {
   const toggleVariable = (valor: string) => {
-    if (seleccionadas.includes(valor)) {
-      setSeleccionadas(seleccionadas.filter(v => v !== valor));
+    if (selected.includes(valor)) {
+      onChange(selected.filter((v) => v !== valor));
     } else {
-      if (seleccionadas.length < 5) {
-        setSeleccionadas([...seleccionadas, valor]);
-      } else {
-        alert('Solo puedes seleccionar hasta 5 variables');
-      }
+      onChange([...selected, valor]);
     }
   };
 
   return (
     <div>
-      <h3 className="text-lg font-semibold mb-2">Selecciona hasta 5 Variables</h3>
+      <h3 className="text-lg font-semibold mb-2">Filtrar por Dimensiones OCEAN</h3>
       <div className="flex flex-col gap-2 max-h-48 overflow-auto border rounded p-2">
         {todasVariables.map(({ label, value }) => (
           <label
             key={value}
             className={`flex items-center gap-2 cursor-pointer ${
-              seleccionadas.includes(value) ? 'font-semibold text-blue-600' : ''
+              selected.includes(value) ? 'font-semibold text-blue-600' : ''
             }`}
           >
             <input
               type="checkbox"
               value={value}
-              checked={seleccionadas.includes(value)}
+              checked={selected.includes(value)}
               onChange={() => toggleVariable(value)}
               className="accent-blue-600"
             />
