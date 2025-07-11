@@ -1,63 +1,76 @@
-// src/components/ModalProcesar/VistaPreviaTabla.tsx
-import React, { useEffect, useState } from 'react';
-import { cargarCSV } from '../../utils/csvLoader';
+import React from 'react';
+import type { OCEANDatos } from '../../types/OCEANdatos';
+import TableO from '../OCEANTables/TablaO';
+import TableE from '../OCEANTables/TablaE';
+import TableC from '../OCEANTables/TableC';
+import TableA from '../OCEANTables/TablaA';
+import TableN from '../OCEANTables/TablaN';
 
-interface FilaDatos {
-  [key: string]: string;
+interface Props {
+  data: OCEANDatos[] | null;
+  loading: boolean;
+  error: string | null;
 }
 
-const VistaPreviaTabla: React.FC = () => {
-  const [datos, setDatos] = useState<FilaDatos[]>([]);
-  const [columnas, setColumnas] = useState<string[]>([]);
+const VistaPreviaTabla: React.FC<Props> = ({ data, loading, error }) => {
+  if (!data || data.length === 0) {
+    return null;
+  }
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await cargarCSV('/dataset.csv'); // archivo en /public
-        setDatos(data);
-        if (data.length > 0) {
-          setColumnas(Object.keys(data[0]));
-        }
-      } catch (error) {
-        console.error('Error al cargar el CSV:', error);
-      }
-    };
+  const hayO = data.some(row => row.O !== undefined && row.O !== null);
+  const hayC = data.some(row => row.C !== undefined && row.C !== null);
+  const hayE = data.some(row => row.E !== undefined && row.E !== null);
+  const hayA = data.some(row => row.A !== undefined && row.A !== null);
+  const hayN = data.some(row => row.N !== undefined && row.N !== null);
 
-    fetchData();
-  }, []);
+  return (
+    <div className="flex-1 overflow-auto border rounded p-4 space-y-6">
+      <h4 className="font-semibold text-md mb-4">Vista previa del dataset</h4>
 
- return (
-  <div className="flex-1 overflow-auto border rounded">
-    <h4 className="font-semibold text-md mb-2">Vista previa del dataset</h4>
-    {datos.length === 0 ? (
-      <p className="text-gray-500">Cargando datos...</p>
-    ) : (
-      <table className="min-w-full table-auto border-collapse text-sm">
-        <thead className="bg-gray-100 sticky top-0">
-          <tr>
-            {columnas.map((col) => (
-              <th key={col} className="p-2 border font-semibold text-left">
-                {col}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {datos.slice(0, 50).map((fila, idx) => (
-            <tr key={idx}>
-              {columnas.map((col) => (
-                <td key={col} className="p-2 border">
-                  {fila[col]}
-                </td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    )}
-  </div>
-);
+      {loading && <p className="text-gray-500">Cargando datos desde la API...</p>}
 
+      {error && <p className="text-red-600 font-medium">Error al cargar datos: {error}</p>}
+
+      {!loading && !error && (
+        <>
+          {hayO && (
+            <div>
+              <h5 className="font-semibold text-sm mb-2 text-blue-800">Datos de Personalidad - Tabla O</h5>
+              <TableO data={data} />
+            </div>
+          )}
+
+          {hayC && (
+            <div>
+              <h5 className="font-semibold text-sm mb-2 text-purple-800">Datos de Responsabilidad - Tabla C</h5>
+              <TableC data={data} />
+            </div>
+          )}
+
+          {hayE && (
+            <div>
+              <h5 className="font-semibold text-sm mb-2 text-green-800">Datos de Extroversión - Tabla E</h5>
+              <TableE data={data} />
+            </div>
+          )}
+
+          {hayA && (
+            <div>
+              <h5 className="font-semibold text-sm mb-2 text-pink-800">Datos de Amabilidad - Tabla A</h5>
+              <TableA data={data} />
+            </div>
+          )}
+
+          {hayN && (
+            <div>
+              <h5 className="font-semibold text-sm mb-2 text-yellow-800">Datos de Neuroticismo - Tabla N</h5>
+              <TableN data={data} />
+            </div>
+          )}
+        </>
+      )}
+    </div>
+  );
 };
 
 export default VistaPreviaTabla;

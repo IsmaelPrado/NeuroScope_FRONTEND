@@ -1,34 +1,35 @@
 export interface Dimension {
-  Curiosidad?: number;
-  Creatividad?: number;
-  Adaptabilidad?: number;
-  ExploracionIdeas?: number;
-  EvadeRutina?: number;
+  Curiosidad?: number | string;
+  Creatividad?: number | string;
+  Adaptabilidad?: number | string;
+  ExploracionIdeas?: number | string;
+  EvadeRutina?: number | string;
 
-  Planificacion?: number;
-  Puntualidad?: number;
-  Organizacion?: number;
-  Compromiso?: number;
-  EsmeroMetas?: number;
+  Planificacion?: number | string;
+  Puntualidad?: number | string;
+  Organizacion?: number | string;
+  Compromiso?: number | string;
+  EsmeroMetas?: number | string;
 
-  DisfruteSocial?: number;
-  HablaFacil?: number;
-  ComodidadSocial?: number;
-  EnergiaSocial?: number;
-  PrefiereGrupos?: number;
+  DisfruteSocial?: number | string;
+  HablaFacil?: number | string;
+  ComodidadSocial?: number | string;
+  EnergiaSocial?: number | string;
+  PrefiereGrupos?: number | string;
 
-  Empatia?: number;
-  Altruismo?: number;
-  EscuchaActiva?: number;
-  EvitaConflictos?: number;
-  ComprensionEmocional?: number;
+  Empatia?: number | string;
+  Altruismo?: number | string;
+  EscuchaActiva?: number | string;
+  EvitaConflictos?: number | string;
+  ComprensionEmocional?: number | string;
 
-  Ansiedad?: number;
-  Irritabilidad?: number;
-  ManejoEstres?: number;
-  PreocupacionExcesiva?: number;
-  SensibilidadErrores?: number;
+  Ansiedad?: number | string;
+  Irritabilidad?: number | string;
+  ManejoEstres?: number | string;
+  PreocupacionExcesiva?: number | string;
+  SensibilidadErrores?: number | string;
 }
+
 
 // Si quieres ser más estricto, puedes dividir Dimension en cinco interfaces por cada letra O, C, E, A, N, pero no es obligatorio.
 

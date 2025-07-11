@@ -14,6 +14,7 @@ const DataTable: React.FC = () => {
   const limit = 5;
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [dimensions, setDimensions] = useState(['O', 'C', 'E', 'A', 'N']);
 
   const tableRef = useRef<HTMLDivElement>(null);
 
@@ -21,7 +22,7 @@ const DataTable: React.FC = () => {
     setLoading(true);
     setError(null);
     try {
-      const result = await fetchPersonalityData(skipParam, limit);
+      const result = await fetchPersonalityData(skipParam, limit, dimensions, 'cuantitativo');
       setData(result.datos);
       setTotal(result.total_registros);
       setSkip(skipParam);

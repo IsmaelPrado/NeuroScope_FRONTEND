@@ -6,6 +6,13 @@ interface Props {
 }
 
 const TableE: React.FC<Props> = ({ data }) => {
+  // Verificamos si al menos un elemento tiene la propiedad E
+  const hayDatosE = data.some(row => row.E !== undefined && row.E !== null);
+
+  if (!hayDatosE) {
+    return null; // No hay datos, no renderizamos tabla
+  }
+
   return (
     <div className="mb-6 overflow-auto rounded-lg shadow border border-green-300">
       <h3 className="text-md font-semibold mb-2 text-green-800 bg-green-100 p-2 rounded-t-lg">
@@ -22,15 +29,19 @@ const TableE: React.FC<Props> = ({ data }) => {
           </tr>
         </thead>
         <tbody>
-          {data.map((row, idx) => (
-            <tr key={idx} className={idx % 2 === 0 ? 'bg-green-50' : 'bg-white'}>
-              <td className="border border-green-200 p-2">{row.E.ComodidadSocial}</td>
-              <td className="border border-green-200 p-2">{row.E.DisfruteSocial}</td>
-              <td className="border border-green-200 p-2">{row.E.EnergiaSocial}</td>
-              <td className="border border-green-200 p-2">{row.E.HablaFacil}</td>
-              <td className="border border-green-200 p-2">{row.E.PrefiereGrupos}</td>
-            </tr>
-          ))}
+          {data.map((row, idx) => {
+            const E = row.E ?? {}; // Acceso seguro a E
+
+            return (
+              <tr key={idx} className={idx % 2 === 0 ? 'bg-green-50' : 'bg-white'}>
+                <td className="border border-green-200 p-2">{E.ComodidadSocial ?? '-'}</td>
+                <td className="border border-green-200 p-2">{E.DisfruteSocial ?? '-'}</td>
+                <td className="border border-green-200 p-2">{E.EnergiaSocial ?? '-'}</td>
+                <td className="border border-green-200 p-2">{E.HablaFacil ?? '-'}</td>
+                <td className="border border-green-200 p-2">{E.PrefiereGrupos ?? '-'}</td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </div>
