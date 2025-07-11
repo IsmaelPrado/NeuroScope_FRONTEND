@@ -1,10 +1,10 @@
-// src/components/Dashboard/ChartCard.tsx
-import React from 'react';
-
+import React from 'react'
 interface ChartCardProps {
   title: string;
-  children: React.ReactNode;
+    children: React.ReactNode;
+
 }
+
 
 const ChartCard: React.FC<ChartCardProps> = ({ title, children }) => {
   return (
