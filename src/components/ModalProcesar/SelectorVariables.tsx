@@ -2,13 +2,11 @@
 import React, { useState } from 'react';
 
 const todasVariables = [
-  { label: 'Edad', value: 'edad' },
-  { label: 'Ingresos', value: 'ingresos' },
-  { label: 'Ciudad', value: 'ciudad' },
-  { label: 'Compra', value: 'compra' },
-  { label: 'Género', value: 'genero' },
-  { label: 'Ocupación', value: 'ocupacion' },
-  { label: 'Nivel Educativo', value: 'nivel_educativo' },
+  { label: 'Apertura', value: 'apertura' },
+  { label: 'Responsabilidad', value: 'responsabilidad' },
+  { label: 'Extraversion', value: 'extraversion' },
+  { label: 'Amabilidad', value: 'amabilidad' },
+  { label: 'Neuroticismo', value: 'neuroticismo' },
 ];
 
 const SelectorVariables: React.FC = () => {
